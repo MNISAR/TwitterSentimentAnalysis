@@ -53,10 +53,18 @@ def main():
         print("Starting TwitterClient")
         api = TwitterClient() 
         query = input("Enter your intrest: ")
+        km = 1000
+        geoc = {'india':(22.3511148,78.6677428,km), 'USA':(39.7837304, 39.7837304, km), 'Russia':(64.6863136, 97.7453061,km)}
+        geocode = input("Enter location preference(1:India, 2:USA, 3:Russia):")
+        if(geocode==''):
+            geocode = geoc[list(geoc.keys())[0]]
+        geocode=geoc[list(geoc.keys())[int(geocode)-1]]
+
         tweets = api.get_tweets(query, count = 100)
         if(len(tweets)==0):
             print("No result for the search! Try again")
             continue
+
         ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive'] 
         print("Positive tweets percentage: {} %".format(100*len(ptweets)/len(tweets))) 
         ntweets = [tweet for tweet in tweets if tweet['sentiment'] == 'negative'] 
