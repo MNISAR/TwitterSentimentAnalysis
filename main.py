@@ -12,13 +12,10 @@ class TwitterClient(object):
         access_token =    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
         access_token_secret = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
   
-        try: 
-            self.auth = OAuthHandler(consumer_key, consumer_secret) 
-            self.auth.set_access_token(access_token, access_token_secret) 
-            self.api = tweepy.API(self.auth) 
-        except: 
-            print("Authentication Failed") 
-  
+        self.authorization = OAuthHandler(consumer_key, consumer_secret) 
+        self.authorization.set_access_token(access_token, access_token_secret) 
+        self.api = tweepy.API(self.authorization) 
+    
     def clean_tweet(self, tweet): 
         return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet).split()) 
   
@@ -31,11 +28,11 @@ class TwitterClient(object):
         else: 
             return 'negative'
   
-    def get_tweets(self, query, count = 10): 
+    def get_tweets(self, query, geocode, count = 10): 
         tweets = [] 
         try: 
             #fetched_tweets = self.api.search(q = query,lang=lang,geocode=geocode,count = count) 
-            fetched_tweets = self.api.search(q = query,count = count) 
+            fetched_tweets = self.api.search(q = query, geocode = geocode, count = count) 
             for tweet in fetched_tweets: 
                 parsed_tweet = {} 
                 parsed_tweet['text'] = tweet.text 
@@ -60,7 +57,7 @@ def main():
             geocode = geoc[list(geoc.keys())[0]]
         geocode=geoc[list(geoc.keys())[int(geocode)-1]]
 
-        tweets = api.get_tweets(query, count = 100)
+        tweets = api.get_tweets(query, geocode = geocode, count = 100)
         if(len(tweets)==0):
             print("No result for the search! Try again")
             continue
