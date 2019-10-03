@@ -68,6 +68,6 @@ def main():
         print("\n\nNegative tweets:") 
         for tweet in ntweets[:5]: 
             print(tweet['text'][:25]) 
-
+        break
 if __name__ == "__main__": 
     main() 
