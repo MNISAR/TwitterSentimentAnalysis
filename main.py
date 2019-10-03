@@ -31,7 +31,7 @@ class TwitterClient(object):
         else: 
             return 'negative'
   
-    def get_tweets(self, query, lang, geocode, count = 10): 
+    def get_tweets(self, query, count = 10): 
         tweets = [] 
         try: 
             #fetched_tweets = self.api.search(q = query,lang=lang,geocode=geocode,count = count) 
@@ -52,20 +52,7 @@ def main():
 	print("Starting TwitterClient")
 	api = TwitterClient() 
 	query = input("Enter your intrest: ")
-	d={0:'en', 1:'gu', 2:'Hindi'}
-	lang = input("Any language Preference(0:Eng, 1:Hindi, 2:Guj): ")
-	if(lang==''):
-		lang = "en"  #ISO 639-1 code languages 
-	else:	
-		lang = d[int(lang)]
-	kms = 1000
-	geoc = {'India':(22.3511148,78.6677428,kms), 'USA':(39.7837304,-100.4458825,kms), 'Russia': (64.6863136,97.7453061,kms)}
-	geocode = input("Any Location preference(0:USA, 1:India, 2:Russia): ")
-	if(geocode==''):
-		geocode = geoc['USA']
-	else:
-		geocode = geoc[list(geoc.keys())[int(geocode)]]
-	tweets = api.get_tweets(query, lang=lang, geocode=geocode, count = 200)
+	tweets = api.get_tweets(query, count = 200)
 	ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive'] 
 	print("Positive tweets percentage: {} %".format(100*len(ptweets)/len(tweets))) 
 	ntweets = [tweet for tweet in tweets if tweet['sentiment'] == 'negative'] 
