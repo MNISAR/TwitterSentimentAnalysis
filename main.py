@@ -34,7 +34,8 @@ class TwitterClient(object):
     def get_tweets(self, query, lang, geocode, count = 10): 
         tweets = [] 
         try: 
-            fetched_tweets = self.api.search(q = query,lang=lang,geocode=geocode,count = count) 
+            #fetched_tweets = self.api.search(q = query,lang=lang,geocode=geocode,count = count) 
+            fetched_tweets = self.api.search(q = query,count = count) 
             for tweet in fetched_tweets: 
                 parsed_tweet = {} 
                 parsed_tweet['text'] = tweet.text 
@@ -61,7 +62,7 @@ def main():
 	geoc = {'India':(22.3511148,78.6677428,kms), 'USA':(39.7837304,-100.4458825,kms), 'Russia': (64.6863136,97.7453061,kms)}
 	geocode = input("Any Location preference(0:USA, 1:India, 2:Russia): ")
 	if(geocode==''):
-		geocode = goec['USA']
+		geocode = geoc['USA']
 	else:
 		geocode = geoc[list(geoc.keys())[int(geocode)]]
 	tweets = api.get_tweets(query, lang=lang, geocode=geocode, count = 200)
