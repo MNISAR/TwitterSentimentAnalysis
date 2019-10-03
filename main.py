@@ -7,10 +7,15 @@ import spacy as sp
 class TwitterClient(object): 
     def __init__(self): 
         # my keys and tokens
-        consumer_key = "XXXXXXXXXXXXXXXXXXXXXXX"
-        consumer_secret = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-        access_token =    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-        access_token_secret = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+        """consumer_key = "XXXXXXXXXXXXXXXXXXXXXXX"
+                                consumer_secret = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+                                access_token =    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+                                access_token_secret = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'"""
+        
+        consumer_key = 'f0WxE7bB3uQwOle3zJcWmJJVD'
+        consumer_secret = 'w64Q2GKzeE1zHSUw4OcnXyufNiYDMzHmEj1oeUz0YQxZj9w13U'
+        access_token =    '354821837-TUMg1Wycx5ZED2IAQqGMJnTx8XbfOPiPln61Fogf'
+        access_token_secret = 'ZmPIvKxWncWRQnLmuUeg0xqfCAndwyTHNjzojP3FBPKio'
   
         self.authorization = OAuthHandler(consumer_key, consumer_secret) 
         self.authorization.set_access_token(access_token, access_token_secret) 
@@ -50,12 +55,13 @@ def main():
         print("Starting TwitterClient")
         api = TwitterClient() 
         query = input("Enter your intrest: ")
-        km = 1000
+        km = 10000
         geoc = {'india':(22.3511148,78.6677428,km), 'USA':(39.7837304, 39.7837304, km), 'Russia':(64.6863136, 97.7453061,km)}
         geocode = input("Enter location preference(1:India, 2:USA, 3:Russia):")
         if(geocode==''):
-            geocode = geoc[list(geoc.keys())[0]]
-        geocode=geoc[list(geoc.keys())[int(geocode)-1]]
+            geocode = ""
+        else:
+            geocode=geoc[list(geoc.keys())[int(geocode)-1]]
 
         tweets = api.get_tweets(query, geocode = geocode, count = 100)
         if(len(tweets)==0):
