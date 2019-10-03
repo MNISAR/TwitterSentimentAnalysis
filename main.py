@@ -7,10 +7,10 @@ import spacy as sp
 class TwitterClient(object): 
     def __init__(self): 
         # my keys and tokens
-        consumer_key = 'QnAoQXG7bFP6fnGOuT4Sgeo23'
-        consumer_secret = 'IaWEvpTFsBa2kpIbeeM8UtlNYhByreCS66j2hzWEHYsrOozcRp'
-        access_token = '354821837-stouXrKg1eOpngesfU7Gm9TMch3z1qS7PejW1hdH'
-        access_token_secret = '9MzzNz3PzndB4THfwVdqRyuJfdjc70KJkQbaaZhfP81Aq'
+        consumer_key = "XXXXXXXXXXXXXXXXXXXXXXX"
+        consumer_secret = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+        access_token =    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+        access_token_secret = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
   
         try: 
             self.auth = OAuthHandler(consumer_key, consumer_secret) 
