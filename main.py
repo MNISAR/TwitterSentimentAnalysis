@@ -7,7 +7,7 @@ import spacy as sp
 class TwitterClient(object): 
     def __init__(self): 
         # my keys and tokens
-        consumer_key = 'QnAoQXG7bFP6fnGOuT4Sgeo23 '
+        consumer_key = 'QnAoQXG7bFP6fnGOuT4Sgeo23'
         consumer_secret = 'IaWEvpTFsBa2kpIbeeM8UtlNYhByreCS66j2hzWEHYsrOozcRp'
         access_token = '354821837-stouXrKg1eOpngesfU7Gm9TMch3z1qS7PejW1hdH'
         access_token_secret = '9MzzNz3PzndB4THfwVdqRyuJfdjc70KJkQbaaZhfP81Aq'
@@ -49,21 +49,25 @@ class TwitterClient(object):
         except tweepy.TweepError as e: 
             print("Error : " + str(e)) 
 def main():
-	print("Starting TwitterClient")
-	api = TwitterClient() 
-	query = input("Enter your intrest: ")
-	tweets = api.get_tweets(query, count = 200)
-	ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive'] 
-	print("Positive tweets percentage: {} %".format(100*len(ptweets)/len(tweets))) 
-	ntweets = [tweet for tweet in tweets if tweet['sentiment'] == 'negative'] 
-	print("Negative tweets percentage: {} %".format(100*len(ntweets)/len(tweets))) 
-	print("Neutral tweets percentage: {} % \ ".format(100*len(tweets - ntweets - ptweets)/len(tweets))) 
-	print("\n\nPositive tweets:") 
-	for tweet in ptweets[:10]: 
-		print(tweet['text'])   
-	print("\n\nNegative tweets:") 
-	for tweet in ntweets[:10]: 
-		print(tweet['text']) 
+    while(True):
+        print("Starting TwitterClient")
+        api = TwitterClient() 
+        query = input("Enter your intrest: ")
+        tweets = api.get_tweets(query, count = 100)
+        if(len(tweets)==0):
+            print("No result for the search! Try again")
+            continue
+        ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive'] 
+        print("Positive tweets percentage: {} %".format(100*len(ptweets)/len(tweets))) 
+        ntweets = [tweet for tweet in tweets if tweet['sentiment'] == 'negative'] 
+        print("Negative tweets percentage: {} %".format(100*len(ntweets)/len(tweets))) 
+        print("Neutral tweets percentage: {} %".format(100*(len(tweets) - len(ntweets) - len(ptweets))/len(tweets))) 
+        print("\n\nPositive tweets:") 
+        for tweet in ptweets[:5]: 
+            print(tweet['text'][:25])   
+        print("\n\nNegative tweets:") 
+        for tweet in ntweets[:5]: 
+            print(tweet['text'][:25]) 
 
 if __name__ == "__main__": 
     main() 
